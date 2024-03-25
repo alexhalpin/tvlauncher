@@ -1,0 +1,52 @@
+{
+  "name": "tv",
+  "description": "description",
+  "version": "0",
+  "manifest_version": 3,
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_icon": {
+      "128": "icon.png"
+    },
+    "default_title": "tv"
+    // "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "script.js"
+      ]
+    }
+  ],
+  "permissions": [
+    // "identity",
+    // "webRequest",
+    // "storage",
+    "tabs",
+    "scripting"
+  ],
+  // "web_accessible_resources": [
+  //   {
+  //     "resources": [
+  //       "/Users/alex/Documents/code/tv launcher/index.html"
+  //     ],
+  //     "matches": [
+  //       "chrome-extension://nkmdnlalbbhimmpcmchecacnjdeodlbd/*"
+  //     ]
+  //   }
+  // ],
+  "host_permissions": [
+    "https://*/*"
+  ]
+}
