@@ -1,0 +1,52 @@
+{
+  "shortcuts": [
+    {
+      "id": "google",
+      "name": "Google",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg",
+      "linkUrl": "https://www.google.com/"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+      "linkUrl": "https://www.youtube.com/"
+    },
+    {
+      "id": "fmovies",
+      "name": "F Movies",
+      "iconUrl": "https://fmoviesz.to/assets/sites/fmovies/logo.png",
+      "linkUrl": "https://fmoviesz.to/"
+    },
+    {
+      "id": "sportsurge",
+      "name": "SportSurge",
+      "iconUrl": "https://v2.sportsurge.net/images/Logo_2.png",
+      "linkUrl": "https://v2.sportsurge.net/home3/"
+    },
+    {
+      "id": "peacock",
+      "name": "Peacock",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/NBCUniversal_Peacock_Logo.svg",
+      "linkUrl": "https://www.peacocktv.com/"
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg",
+      "linkUrl": "https://www.netflix.com/"
+    },
+    {
+      "id": "twitch",
+      "name": "Twitch",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Twitch_icon_2012.svg",
+      "linkUrl": "https://www.twitch.tv/"
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+      "linkUrl": "https://chat.openai.com/"
+    }
+  ]
+}

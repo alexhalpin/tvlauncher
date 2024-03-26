@@ -11,7 +11,6 @@
       "128": "icon.png"
     },
     "default_title": "tv"
-    // "default_popup": "index.html"
   },
   "background": {
     "service_worker": "background.js",
@@ -30,22 +29,16 @@
     }
   ],
   "permissions": [
-    // "identity",
-    // "webRequest",
-    // "storage",
     "tabs",
     "scripting"
   ],
-  // "web_accessible_resources": [
-  //   {
-  //     "resources": [
-  //       "/Users/alex/Documents/code/tv launcher/index.html"
-  //     ],
-  //     "matches": [
-  //       "chrome-extension://nkmdnlalbbhimmpcmchecacnjdeodlbd/*"
-  //     ]
-  //   }
-  // ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "shortcuts.json"
+      ]
+    }
+  ],
   "host_permissions": [
     "https://*/*"
   ]

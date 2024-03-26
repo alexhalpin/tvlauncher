@@ -6,14 +6,16 @@ chrome.tabs.onRemoved.addListener(refresh);
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.command === "home")
-    refresh().then((homeTab) => focusTab(homeTab.id));
+    refresh().then((homeTab) => focusTab(homeTab.id)); // #eh is neccessary for this to work
 });
+
+createShortcuts();
 
 export async function refresh() {
   return resetHomeTab()
     .then(getTabs)
     .then((tabs) => renderWidgets(tabs))
-    .then(resetHomeTab);
+    .then(resetHomeTab); // #eh
 }
 
 async function getTabs(homeTab) {
@@ -54,15 +56,37 @@ function createWidget(tab) {
   widgetDiv.classList.add("widget");
   widgetDiv.tab = tab;
 
-  widgetDiv.onclick = () => {
-    focusTab(tab.id);
+  widgetDiv.focusTab = () => {
+    focusTab(widgetDiv.tab.id);
   };
+
+  widgetDiv.closeTab = () => {
+    chrome.tabs.remove(widgetDiv.tab.id);
+  };
+
+  widgetDiv.onclick = widgetDiv.focusTab;
 
   let widgetImage = document.createElement("img");
   widgetImage.classList.add("widgetImage");
   widgetImage.src = tab.favIconUrl ? tab.favIconUrl : "globe.png";
 
   widgetDiv.appendChild(widgetImage);
+
+  widgetDiv.addEventListener("mouseenter", (e) => {
+    e.target.hover = true;
+  });
+  widgetDiv.addEventListener("mouseleave", (e) => {
+    e.target.hover = false;
+  });
+
+  const closeListener = (e) => {
+    if (widgetDiv.hover && e.key == "Backspace") {
+      widgetDiv.closeTab();
+      document.removeEventListener("keydown", closeListener);
+    }
+  };
+
+  document.addEventListener("keydown", closeListener);
 
   let widgetTitle = document.createElement("div");
   widgetTitle.classList.add("widgetTitle");
@@ -116,4 +140,36 @@ async function pinTab(tabid) {
   return chrome.tabs.update(tabid, {
     pinned: true,
   });
+}
+
+async function createShortcuts() {
+  var shortcutContainer = document.querySelector("#shortcutContainer");
+  const createShortcut = (shortcutConfig) => {
+    var shortcutDiv = document.createElement("div");
+    shortcutDiv.classList.add("shortcut", "widget");
+    shortcutDiv.id = shortcutConfig.id;
+    shortcutDiv.name = shortcutConfig.name;
+
+    var shortcutIcon = document.createElement("img");
+    shortcutIcon.classList.add("shortcutIcon");
+    shortcutIcon.src = shortcutConfig.iconUrl;
+
+    shortcutDiv.onclick = () => {
+      chrome.tabs.create({
+        url: shortcutConfig.linkUrl,
+        active: true,
+      });
+    };
+
+    shortcutDiv.appendChild(shortcutIcon);
+    shortcutContainer.appendChild(shortcutDiv);
+  };
+
+  return fetch(chrome.runtime.getURL("shortcuts.json"))
+    .then((resp) => resp.json())
+    .then((data) => {
+      for (const shortcutConfig of data.shortcuts) {
+        createShortcut(shortcutConfig);
+      }
+    });
 }
